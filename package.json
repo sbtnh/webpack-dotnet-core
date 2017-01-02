@@ -1,0 +1,52 @@
+{
+  "name": "mvctest",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "engines": {
+    "npm": ">=3"
+  },
+  "scripts": {
+    "preinstall": "node tools/nodeVersionCheck.js",
+    "start-dotnet": "node tools/startDotnetServer.js",
+    "start-message": "babel-node tools/startMessage.js",
+    "prestart": "npm-run-all --parallel start-message remove-assets",
+    "start": "npm-run-all --parallel start-dotnet webpack:watch lint:watch",
+    "remove-assets": "babel-node tools/removeAssets.js",
+    "prebuild": "npm run remove-assets && npm run lint",
+    "webpack:watch": "webpack --config webpack.config.dev.js --watch",
+    "lint": "esw webpack.config.* assets/js tools --color",
+    "lint:watch": "npm run lint -- --watch"
+  },
+  "dependencies": {
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "babel-root-import": "^4.1.5",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.8.0",
+    "eslint-watch": "^2.1.14",
+    "extract-text-webpack-plugin": "2.0.0-beta.4",
+    "image-webpack-loader": "^3.1.0",
+    "node-sass": "^4.1.1",
+    "npm-run-all": "^3.1.2",
+    "open": "^0.0.5",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "webpack": "2.2.0-rc.2",
+    "webpack-dev-server": "2.2.0-rc.0"
+  }
+}
